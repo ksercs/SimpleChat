@@ -1,0 +1,1 @@
+export const adder = (x, y) => x + y;
