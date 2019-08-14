@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import path from 'path'
 import express from 'express'
 import webpack from 'webpack'
@@ -10,7 +11,10 @@ const app = express(),
             HTML_FILE = path.join(DIST_DIR, 'index.html'),
             compiler = webpack(config);
 
-const PORT = process.env.PORT || 8080;
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
+const PORT = process.env.PORT || 3000;
 
 app.use(webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath
@@ -28,7 +32,18 @@ app.get('*', (req, res, next) => {
   })
 })
 
-app.listen(PORT, () => {
+http.listen(PORT, () => {
     console.log(`App listening to ${PORT}....`)
     console.log('Press Ctrl+C to quit.')
 })
+
+io.sockets.on('connection', function (socket) {
+    let time = (new Date).toLocaleTimeString();
+    let username = socket.id.substr(0, 5);
+    console.log(username + " connected (" + time + ')');
+
+    socket.on('disconnect', function() {
+        let time = (new Date).toLocaleTimeString();
+        console.log(username + " disconnected (" + time + ')');
+    });
+});

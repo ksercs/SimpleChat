@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8">
-    <title>Express and Webpack App</title>
+    <title>SimpleChat</title>
     <link rel="shortcut icon" href="#">
-</head>
-<body>
-    <h1>MyApp</h1>
-    <p class="description">Express and Webpack App</p>
-</body>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <div class="messageLayer">
+      <div id="currentMessages"></div>
+    </div>
+    <input class="inputField" type="text" id="addMessage">
+  </body>
 </html>
