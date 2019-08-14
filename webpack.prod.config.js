@@ -51,6 +51,14 @@ module.exports = {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
+      { 
+        test: /\.less$/, // .less and .css
+        use: [ 
+            MiniCssExtractPlugin.loader, 
+            'css-loader', 
+            'less-loader'
+        ],
+      },
     ]
   },
   plugins: [
@@ -61,6 +69,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name].css",
       chunkFilename: "[id].css"
-    })
+    }),
+    new MiniCssExtractPlugin()
   ]
 }
