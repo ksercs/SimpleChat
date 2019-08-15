@@ -59,6 +59,27 @@ h1, h2, h3, h4, h5, p {
   word-wrap: break-word;
 }
 
+.centerMessageWrapper {
+  text-align: center;
+  border-color: #ccc;
+  background-color: rgb(121, 194, 99);
+  border-radius: 5px;
+  padding: 10px;
+  word-wrap: break-word;
+}
+
+.name-right {
+  float: right;
+  font-size:18px;
+  margin-left :5px;
+}
+  
+.name-left {
+  float: left;
+  font-size:18px;
+  margin-right: 5px;
+}
+
 .time-right {
   float: right;
   color: #aaa;
@@ -71,6 +92,12 @@ h1, h2, h3, h4, h5, p {
   font-size:15px;
 }
 
+.time-center {
+  float: center;
+  color: rgb(46, 45, 45);
+  font-size:15px;
+}
+
 .leftMessageWrapper::after {
   content: "";
   clear: both;
@@ -79,6 +106,12 @@ h1, h2, h3, h4, h5, p {
 
 
 .rightMessageWrapper::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.centerMessageWrapper::after {
   content: "";
   clear: both;
   display: table;
