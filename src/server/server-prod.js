@@ -25,21 +25,20 @@ http.listen(PORT, () => {
 
 
 io.sockets.on('connection', function (socket) {
-    console.log("New user connected");
     let time = (new Date).toLocaleTimeString();
-    socket.json.send({'event': 'connected', 'time': time});
-	socket.broadcast.json.send({'event': 'userJoined', 'time': time});
-    
-    socket.on('message', function (msg) {
-        console.log("Some user wrote: " + msg);
-        let time = (new Date).toLocaleTimeString();
-        socket.json.send({'event': 'messageSent', 'text': msg, 'time': time});
-		socket.broadcast.json.send({'event': 'messageReceived', 'text': msg, 'time': time})
+    let username = socket.id.substr(0, 5);
+    console.log(username + " connected (" + time + ')');
+    socket.broadcast.emit('newUser', username);
+    socket.emit('userName', username);
+
+    socket.on('message', function(msg){
+      console.log('User: ' + username + ' | Message: ' + msg);
+      io.sockets.emit('messageToClients', msg, username);
     });
-    
-	socket.on('disconnect', function() {
-        console.log("User disconnected");
+
+    socket.on('disconnect', function() {
         let time = (new Date).toLocaleTimeString();
-		io.sockets.json.send({'event': 'userSplit', 'time': time});
-	});
+        console.log(username + " disconnected (" + time + ')');
+        socket.broadcast.emit('dissconectUser', username);
+      });
 });
